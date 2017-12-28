@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+
+{# /post/{{ post.id }} #}
+
+{#{% url 'detail' id=post.id %}#}
+
+    <div class="container">
+        {% for post in posts %}
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="thumbnail">
+                        {% if post.image %}
+                            <a href="{% url "post-detay" post.id %}"><img src="{{ post.image.url }}" class="img-responsive" ></a>
+                        {% endif %}
+                        <div class="caption">
+                            <h3><a href="#">{{ post.title }}</a> <small>{{ post.created_date|timesince }}</small></h3>
+                            <h4>Yazar: {{ post.user.get_full_name }}</h4>
+                            <p>{{ post.content }}</p>
+                            <p>
+                                <a href="{% url "post-detay" post.id %}" class="btn btn-success" role="button">İncele</a>
+                                {% if request.user.is_authenticated %}
+                                    <a href="{% url "post-update" post.id %}" class="btn btn-default" role="button">Güncelle</a>
+                                    <a href="#" class="btn btn-danger" role="button">Sil</a>
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {% if posts|length == 0 %}
+            <p class="lead">Düzgün Birşey Yaz.. :@</p>
+        {% endif %}
+    </div>
+
+
+{% endblock %}

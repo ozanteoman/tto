@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% for post in posts %}
+        {% url 'post-detay' post.id %}
+        <h2><a href="{% url 'post-detay' post.id %}">{{ post.title }},{{ post.created_date }},{{ post.user }}</a></h2>
+    {% endfor %}
+
+</body>
+</html>
